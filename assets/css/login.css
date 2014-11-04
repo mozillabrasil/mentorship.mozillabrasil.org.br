@@ -1,0 +1,20 @@
+html{
+    height: 100%;
+}
+
+body{
+    background-color: #6a7b86;
+    background-image: url("../images/login_background.png"), url("../images/background.png");
+    background-position: center top, center top;
+    background-repeat: repeat-x, repeat;
+    color: #fff;
+}
+div#login{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+div#login p{
+    margin-top: 20px;
+}

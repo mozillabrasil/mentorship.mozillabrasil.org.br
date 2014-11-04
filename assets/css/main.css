@@ -1,0 +1,57 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: #f6f4ec;
+    background-image: url("../images/background.png"), linear-gradient(#d7d3c8, #f6f4ec 400px);
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat, repeat-x;
+    background-size: auto auto;
+    color: #404040;
+}
+header{
+    background: linear-gradient(#e5e3dc, #ecebe5) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    border-top: 2px solid rgb(255, 255, 255);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    color: transparent;
+}
+main section.container{
+    padding-top: 45px;
+}
+.filterable {
+    margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
+.table th,
+.table td{
+    vertical-align: middle !important;
+}
+.help-block{
+    text-align: right;
+}
