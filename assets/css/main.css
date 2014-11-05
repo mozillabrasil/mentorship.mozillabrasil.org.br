@@ -55,3 +55,9 @@ main section.container{
 .help-block{
     text-align: right;
 }
+.tab-pane{
+    padding-top: 10px;
+}
+.input-group {
+    margin-bottom: 10px;
+}

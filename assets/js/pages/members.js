@@ -5,11 +5,14 @@ var members = {
     },
     saveOrUpdate: function (form) {
         var self = this;
+        var $list_interests = $('#modal-add-member .tab-content #interests input:checked').map(function () {
+            return $(this).val();
+        }).toArray();
         $.ajax({
             url: self.url('save_or_update'),
             method: 'POST',
             dataType: "json",
-            data: $(form).serialize(),
+            data: $(form).serialize() + '&interest=' + $list_interests,
             success: function ($json) {
                 if ($.isPlainObject($json)) {
                     if ($json.success === true) {
@@ -64,10 +67,11 @@ var members = {
                 $modal.find('#name').val('');
                 $modal.find('#email').val('');
                 $modal.find('#localization').val('');
-                $modal.find('#interest option:first').prop('selected', true);
+                $('#modal-add-member .tab-content #interests input:checked').prop('checked', false);
+                $modal.find('.nav-tabs a:first').tab('show');
             },
             success: function ($json) {
-//                $('#btn-submit-member').text('Cadastrar');
+                $('#btn-submit-member').text('Cadastrar');
                 if ($.isPlainObject($json)) {
                     if ($json.success === true) {
                         $modal.find('#objectId').val($objectId);
@@ -75,7 +79,11 @@ var members = {
                             $modal.find('#name').val($json.data.name);
                             $modal.find('#email').val($json.data.email);
                             $modal.find('#localization').val($json.data.localization);
-                            $modal.find('#interest').val($json.data.interest);
+                            for (var $key in $json.data.interest) {
+                                var $interest = $json.data.interest[$key];
+                                $('#modal-add-member .tab-content #interests input[type=checkbox][value=' + $interest + ']').prop('checked', true);
+                            }
+                            $modal.find('#interest').val();
                             $('#btn-submit-member').text('Atualizar');
                         }
                     }

@@ -43,27 +43,44 @@
                 <h4 class="modal-title">Formulário de Membros</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
-                    <input type="hidden" id="objectId" name="objectId" />
-                    <div class="form-group">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">Nome</span>
-                            <input type="text" class="form-control" placeholder="Nome" id="name" name="name"/>
-                        </div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#informations" role="tab" data-toggle="tab">Informações</a></li>
+                    <li role="presentation"><a href="#interests" role="tab" data-toggle="tab">Interesse</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="informations">
+                        <form role="form">
+                            <input type="hidden" id="objectId" name="objectId" />
+                            <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">Nome</span>
+                                    <input type="text" class="form-control" placeholder="Nome" id="name" name="name"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">Email</span>
+                                    <input type="email" class="form-control" placeholder="Email" id="email" name="email"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon">Localização</span>
+                                    <input type="text" class="form-control" placeholder="Localização" id="localization" name="localization"/>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">Email</span>
-                            <input type="email" class="form-control" placeholder="Email" id="email" name="email"/>
-                        </div>
+                    <div role="tabpanel" class="tab-pane fade" id="interests">
+                        <?php
+                        if (is_array($list_interests)) {
+                            foreach ($list_interests as $interesse) {
+                                $this->load->view('members/row_interest', $interesse->serverData);
+                            }
+                        }
+                        ?>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-addon">Localização</span>
-                            <input type="text" class="form-control" placeholder="Localização" id="localization" name="localization"/>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

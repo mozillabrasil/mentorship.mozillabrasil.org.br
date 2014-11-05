@@ -11,14 +11,18 @@ class Members extends MY_Controller {
     }
 
     public function index() {
-        $this->render('members/index');
+        $this->load->model('interests_model');
+        $data = array(
+            'list_interests' => $this->interests_model->get_all()
+        );
+        $this->render('members/index', $data);
     }
 
     public function load() {
         $list_members = $this->members_model->get_all();
         if (count($list_members) > 0) {
             foreach ($list_members as $member) {
-                $this->load->view('members/row', $member->serverData);
+                $this->load->view('members/row_member', $member->serverData);
             }
         } else {
             echo '<tr><td colspan="5">Nenhum registro encontrado</td></tr>';
@@ -43,7 +47,7 @@ class Members extends MY_Controller {
             'name' => $this->input->post('name', TRUE),
             'email' => $this->input->post('email', TRUE),
             'localization' => $this->input->post('localization', TRUE),
-            'interest' => array()//$this->input->post('interest', TRUE)
+            'interest' => explode(',', $this->input->post('interest', TRUE))
         );
         $objectID = $this->members_model->save_or_update($data);
         $success = false;
