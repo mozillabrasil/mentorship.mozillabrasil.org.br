@@ -5,13 +5,10 @@ if (!defined('BASEPATH'))
 
 class Login extends MY_Controller {
 
-    private $fake_user = array(
-        'status' => 'okay',
-        'email' => 'rdrgwtrs@gmail.com',
-        'audience' => 'http://persona.localhost:80',
-        'expires' => 1348971576253,
-        'issuer' => 'login.persona.org'
-    );
+    /**
+     * Scheme, hostname and port
+     */
+    protected $audience;
 
     public function __construct() {
         parent::__construct();
@@ -27,12 +24,11 @@ class Login extends MY_Controller {
         );
         $assertion = $this->input->post('assertion', true);
         if (trim($assertion)) {
-            $response = $this->get_response($assertion);
-            if ($response->status !== 'okay') {
-                $email = 'rdrgwtrs@gmail.com';
-                if ($this->valid_if_user_exists($email) === true) {
+            $response = $this->verifyAssertion($assertion);
+            if ($response->status === 'okay') {
+                if ($this->valid_if_user_exists($response->email) === true) {
                     $json['success'] = true;
-                    $json['data'] = $this->fake_user;
+                    $json['data'] = $response;
                     $this->session->set_userdata($json['data']);
                 }
             } else {
@@ -45,26 +41,38 @@ class Login extends MY_Controller {
     public function valid_if_user_exists($email) {
         $this->load->model('mentors_model');
         $user_exists = $this->mentors_model->get_by_email($email);
-        return isset($user_exists->serverData) ? true : false ;
+        return isset($user_exists->serverData) ? true : false;
     }
 
-    public function get_response($assertion) {
-        $url = 'https://verifier.login.persona.org/verify';
-        $c = curl_init($url);
-        $data = 'assertion=' . $assertion . '&audience=http://persona.localhost:80';
+    /**
+     * Verify the validity of the assertion received from the user
+     *
+     * @param string $assertion The assertion as received from the login dialog
+     * @return object The response from the Persona online verifier
+     */
+    public function verifyAssertion($assertion) {
+        $this->audience = $this->guessAudience();
 
-        curl_setopt_array($c, array(
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_SSL_VERIFYPEER => true,
-            CURLOPT_SSL_VERIFYHOST => 2
-        ));
+        $postdata = 'assertion=' . urlencode($assertion) . '&audience=' . urlencode($this->audience);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://verifier.login.persona.org/verify");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($response);
+    }
 
-        $result = curl_exec($c);
-        curl_close($c);
-
-        return json_decode($result);
+    /**
+     * Guesses the audience from the web server configuration
+     */
+    protected function guessAudience() {
+        $audience = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+        $audience .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
+        return $audience;
     }
 
 }
