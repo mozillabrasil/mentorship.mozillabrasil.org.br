@@ -30,6 +30,8 @@ class Login extends MY_Controller {
                     $json['success'] = true;
                     $json['data'] = $response;
                     $this->session->set_userdata($json['data']);
+                } else {
+                    $json['error'] = 'Usuário sem permissão de Mentor';
                 }
             } else {
                 $json['error'] = isset($response->reason) ? $response->reason : '';
