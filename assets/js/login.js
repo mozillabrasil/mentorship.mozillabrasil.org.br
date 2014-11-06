@@ -5,7 +5,16 @@ var APP = {
 //        $l10n.setLanguage(APP.language);
     },
     login: function () {
-        navigator.id.request();
+        navigator.id.request({
+            siteName: 'Mentorship',
+//            siteLogo: 'https://mentorship.mozillabrasil.org.br/assets/images/mozilla-brasil.png',
+//            termsOfService: '/tos.html',
+//            privacyPolicy: '/privacy.html',
+//            returnTo: '/welcome.html',
+            oncancel: function () {
+//                alert('Tentativa de login cancelada');
+            }
+        });
     },
     init: function () {
         var self = this;
@@ -13,7 +22,6 @@ var APP = {
             self.login();
         });
         navigator.id.watch({
-            loggedInUser: null,
             onlogin: function ($assertion) {
                 $.ajax({
                     url: URL_BASE + 'login/auth',
@@ -32,6 +40,9 @@ var APP = {
                         }
                     }
                 });
+            },
+            oncancel: function () {
+
             },
             onlogout: function () {
 
