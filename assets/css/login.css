@@ -7,7 +7,6 @@ body{
     background-image: url("../images/login_background.png"), url("../images/background.png");
     background-position: center top, center top;
     background-repeat: repeat-x, repeat;
-    color: #fff;
 }
 div#login{
     position: absolute;
@@ -15,6 +14,9 @@ div#login{
     top: 50%;
     left: 50%;
 }
-div#login p{
-    margin-top: 20px;
+div#login .col-lg-12{
+    margin-bottom: 20px;
+}
+main button{
+    color: #fff;
 }

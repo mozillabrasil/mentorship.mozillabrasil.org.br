@@ -15,7 +15,11 @@ class Login extends MY_Controller {
     }
 
     public function index() {
-        $this->load->view('login/index');
+        $this->load->model('mentors_model');
+        $data = array(
+            'list_mentors' => $this->mentors_model->get_all()
+        );
+        $this->load->view('login/index', $data);
     }
 
     public function auth() {
