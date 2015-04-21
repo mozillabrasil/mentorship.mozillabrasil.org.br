@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8"/>
         <title>Mentorship</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta name="viewport" content="width=device-width, minimal-ui, initial-scale=1.0, user-scalable=0"/>
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -27,17 +27,17 @@
     </head>
     <body>
         <main>
-            <div id="login" class="text-center">
+            <div id="login" class="text-center container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <img src="<?php echo base_url(); ?>assets/images/mozilla-brasil.png" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <button id="btn-request-mentor" class="btn btn-lg btn-danger">Solicitar Mentor</button>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <button id="btn-login-persona" class="btn btn-lg btn-primary">Login com Persona</button>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                                 <?php
                                 if (is_array($list_mentors)) {
                                     foreach ($list_mentors as $mentor) {
-                                        $this->load->view('login/row_mentor', $mentor->serverData);
+                                        $this->load->view('login/row_mentor', $mentor);
                                     }
                                 }
                                 ?>

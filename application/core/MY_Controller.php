@@ -30,11 +30,12 @@ class MY_Controller extends CI_Controller {
         'custom',
         'app'
     );
+    public $sessao = array();
 
     function __construct() {
         parent::__construct();
-        $sessao = $this->session->userdata('status');
-        if ($sessao !== 'okay') {
+        $this->sessao = $this->session->userdata();
+        if (isset($this->sessao['status']) && $this->sessao['status'] !== 'okay') {
             if (!in_array($this->router->fetch_class(), array('login'))) {
                 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
                     //        echo 'Perdeu sessÃ£o';
