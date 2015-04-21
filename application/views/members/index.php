@@ -47,10 +47,10 @@
                     <li role="presentation" class="active"><a href="#informations" role="tab" data-toggle="tab">Informações</a></li>
                     <li role="presentation"><a href="#interests" role="tab" data-toggle="tab">Interesse</a></li>
                 </ul>
-                <div class="tab-content">
+                <form role="form">
+                  <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="informations">
-                        <form role="form">
-                            <input type="hidden" id="objectId" name="objectId" />
+                            <input type="hidden" id="id" name="id" />
                             <div class="form-group">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">Nome</span>
@@ -69,18 +69,18 @@
                                     <input type="text" class="form-control" placeholder="Localização" id="localization" name="localization"/>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="interests">
                         <?php
                         if (is_array($list_interests)) {
-                            foreach ($list_interests as $interesse) {
-                                $this->load->view('members/row_interest', $interesse->serverData);
+                            foreach ($list_interests as $interest) {
+                                $this->load->view('members/row_interest', $interest);
                             }
                         }
                         ?>
                     </div>
-                </div>
+                  </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

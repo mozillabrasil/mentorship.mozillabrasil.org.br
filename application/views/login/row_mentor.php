@@ -1,4 +1,4 @@
-<tr data-objectId="<?php echo $objectId; ?>">
+<tr data-id="<?php echo $id; ?>">
     <td class="text-left"><?php echo $name; ?></td>
     <td class="text-left"><?php echo $email; ?></td>
     <td class="text-center"><?php echo $city; ?></td>
