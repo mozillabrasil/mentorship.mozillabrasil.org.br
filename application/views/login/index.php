@@ -41,6 +41,11 @@
                         <button id="btn-login-persona" class="btn btn-lg btn-primary">Login com Persona</button>
                     </div>
                 </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <button id="btn-contribute" class="btn btn-lg btn-success">Como contribuir ?</button>
+                  </div>
+                </div>
             </div>
         </main>
         <div id="modal-request-mentor" class="modal fade">

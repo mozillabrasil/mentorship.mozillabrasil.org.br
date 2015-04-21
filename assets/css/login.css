@@ -20,3 +20,7 @@ div#login .col-lg-12{
 main button{
     color: #fff;
 }
+#btn-request-mentor,
+#btn-login-persona{
+  margin-bottom : 10px;
+}

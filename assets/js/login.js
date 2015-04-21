@@ -34,6 +34,12 @@ var APP = {
       _this.login();
     });
 
+    $('main #login button#btn-contribute').click(function() {
+      if (window.confirm('Você será redirecionado para outra página.\nDeseja continuar ?')) {
+        window.open('http://contribua.mozillabrasil.org.br/', 'What can I do for Mozilla');
+      }
+    });
+
     navigator.id.watch({
       onlogin: function($assertion) {
         $.ajax({
